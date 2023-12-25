@@ -1,11 +1,12 @@
-def caesar_cipher(text, shift_factor)
-  text.downcase!
-  offset = shift_factor % 26 # To ensure shift factor is within range
+def caeser_cipher(text, shift_factor)
+  offset = shift_factor % 26 # Ensure shift is within range
   cipher_text = text.split('').map do |c|
-    if !c.ord.between?(97, 122)
-      c
+    if !c.ord.between?(97, 122) and !c.ord.between?(65, 90)
+      c # Ensuring only alphabets are ciphered
+    elsif c == c.downcase
+      ((c.ord - 'a'.ord + offset) % 26 + 'a'.ord).chr # Wraping from 'z' to 'a'
     else
-      ((c.ord - 'a'.ord + offset) % 26 + 'a'.ord).chr # To wrap characters from 'z' to 'a'
+      ((c.ord - 'A'.ord + offset) % 26 + 'A'.ord).chr # Wraping from 'Z' to 'A'
     end
   end
   cipher_text.join('')
